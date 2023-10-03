@@ -34,11 +34,10 @@ public class TestPerson {
     void testGetPlanet() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
-        MediaType mediaType = MediaType.parse("text/plain");
-        RequestBody body = RequestBody.create(mediaType, "");
+
         Request request = new Request.Builder()
                 .url("https://swapi.dev/api/planets/3/")
-                .method("GET", body)
+                .get()
                 .build();
         try {
             Response response = client.newCall(request).execute();
