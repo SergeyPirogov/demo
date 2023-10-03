@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestPerson {
 
     @Test
-    void name() {
+    void testGetPerson() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
