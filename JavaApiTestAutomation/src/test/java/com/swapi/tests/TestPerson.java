@@ -43,7 +43,6 @@ public class TestPerson {
             Response response = client.newCall(request).execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-
+        }`
     }
 }
