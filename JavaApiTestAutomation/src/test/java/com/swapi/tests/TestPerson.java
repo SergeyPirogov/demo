@@ -1,15 +1,10 @@
 package com.swapi.tests;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.example.http.HttpClient;
 import org.example.http.HttpResponse;
 import org.example.model.GetPersonResponse;
 import org.example.model.GetPlanetResponse;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
