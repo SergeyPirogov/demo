@@ -1,6 +1,12 @@
 package com.swapi.tests;
 
-import okhttp3.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.example.http.HttpClient;
+import org.example.http.HttpResponse;
+import org.example.model.GetPersonResponse;
+import org.example.model.GetPlanetResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,40 +15,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestPerson {
 
+    private final String BASE_URL = "https://swapi.dev/api";
+    private final HttpClient httpClient = new HttpClient(BASE_URL);
+
     @Test
     void testGetPerson() {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
+        HttpResponse response = httpClient.get("/people/1");
+        GetPersonResponse getPersonResponse = response.json(GetPersonResponse.class);
 
-        Request request = new Request.Builder()
-                .url("https://swapi.dev/api/people/1")
-                .get()
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-
-            System.out.println(responseBody);
-
-            assertThat(responseBody).contains("Luke Skywalker");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        assertThat(getPersonResponse.getName()).isEqualTo("Luke Skywalker");
     }
 
+    @Test
     void testGetPlanet() {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
+        HttpResponse httpResponse = httpClient.get("/planets/3/");
+        GetPlanetResponse getPlanetResponse = httpResponse.json(GetPlanetResponse.class);
 
-        Request request = new Request.Builder()
-                .url("https://swapi.dev/api/planets/3/")
-                .get()
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        assertThat(getPlanetResponse.getName()).isEqualTo("Yavin IV");
     }
 }
